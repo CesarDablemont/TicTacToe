@@ -1,9 +1,12 @@
 using System;
+using System.Drawing;
 
 namespace TicTacToe
 {
   static class Input
   {
+    static int LastMenuChoice { get; set; } = 0;
+    static int LastSettingsChoice { get; set; } = 0;
 
     static public int ReadKey(int min, int max)
     {
@@ -29,19 +32,27 @@ namespace TicTacToe
 
     static public int Menu()
     {
-      int x = 14; //2
-      int y = 8;
+      int initX = 14;
+      int initY = 8;
+      int deltaY = 2;
+      int numberOfChoice = 3;
+
+      int x = initX;
+      int y = initY + LastMenuChoice * deltaY;
       while (true)
       {
         Display.WriteAtPosition(x, y, "X");
         ConsoleKeyInfo keyInfo = Console.ReadKey();
-        if (keyInfo.Key == ConsoleKey.UpArrow && y > 8) y -= 2;
-        else if (keyInfo.Key == ConsoleKey.DownArrow && y < 12) y += 2;
-        else if (keyInfo.Key == ConsoleKey.Spacebar || keyInfo.Key == ConsoleKey.Enter) return (y - 8) / 2;
+        if (keyInfo.Key == ConsoleKey.UpArrow && y > initY) y -= deltaY;
+        else if (keyInfo.Key == ConsoleKey.DownArrow && y < (initY + ((numberOfChoice - 1) * deltaY))) y += deltaY;
+        else if (keyInfo.Key == ConsoleKey.Spacebar || keyInfo.Key == ConsoleKey.Enter)
+        {
+          LastMenuChoice = (y - 8) / deltaY;
+          return LastMenuChoice;
+        }
         Display.WriteAtPosition(Console.CursorLeft - 1, Console.CursorTop, " ");
       }
     }
-
 
     static public int Settings()
     {
@@ -51,14 +62,18 @@ namespace TicTacToe
       int numberOfChoice = 4;
 
       int x = initX;
-      int y = initY;
+      int y = initY + LastSettingsChoice * deltaY;
       while (true)
       {
         Display.WriteAtPosition(x, y, "X");
         ConsoleKeyInfo keyInfo = Console.ReadKey();
         if (keyInfo.Key == ConsoleKey.UpArrow && y > initY) y -= deltaY;
         else if (keyInfo.Key == ConsoleKey.DownArrow && y < (initY + ((numberOfChoice - 1) * deltaY))) y += deltaY;
-        else if (keyInfo.Key == ConsoleKey.Spacebar || keyInfo.Key == ConsoleKey.Enter) return (y - initY) / deltaY;
+        else if (keyInfo.Key == ConsoleKey.Spacebar || keyInfo.Key == ConsoleKey.Enter)
+        {
+          LastSettingsChoice = (y - initY) / deltaY;
+          return LastSettingsChoice;
+        }
         Display.WriteAtPosition(Console.CursorLeft - 1, Console.CursorTop, " ");
       };
     }
@@ -70,8 +85,11 @@ namespace TicTacToe
       int deltaY = 2;
       int numberOfChoice = 4;
 
+      StartMode[] values = (StartMode[])Enum.GetValues(typeof(StartMode));
+      int startModeIndex = Array.IndexOf(values, Board.startMode);
+
       int x = initX;
-      int y = initY;
+      int y = initY + startModeIndex * deltaY;
       while (true)
       {
         Display.WriteAtPosition(x, y, "X");
@@ -97,8 +115,16 @@ namespace TicTacToe
       int numberChoiceX = 2;
       int numberChoiceY = 6;
 
-      int x = initX;
-      int y = initY;
+      int pNum = 0;
+      if (player.TheCell == Cell.O) pNum = 1;
+
+      string playerColor = Board.PlayerColors[pNum].ToString();
+      int playerColorIndex = Array.IndexOf(Enum.GetNames(typeof(Colors)), playerColor);
+      int playerColorPositionX = playerColorIndex / 6;
+      int playerColorPositionY = playerColorIndex % 6;
+
+      int x = initX + playerColorPositionX * deltaX;
+      int y = initY + playerColorPositionY * deltaY;
       while (true)
       {
         Display.WriteAtPosition(x, y, "X");
@@ -119,8 +145,6 @@ namespace TicTacToe
         else if (keyInfo.Key == ConsoleKey.RightArrow && x < (initX + ((numberChoiceX - 1) * deltaX))) x += deltaX;
         else if (keyInfo.Key == ConsoleKey.Spacebar || keyInfo.Key == ConsoleKey.Enter)
         {
-          int pNum = 0;
-          if (player.TheCell == Cell.O) pNum = 1;
           string? colorName = Enum.GetName(typeof(Colors), ((y - initY) / deltaY) + 6 * (x - initX) / deltaX);
           Board.PlayerColors[pNum] = Enum.TryParse(colorName, out ConsoleColor parsedColor) ? parsedColor : ConsoleColor.White;
           // if (colorName != null)
@@ -142,8 +166,11 @@ namespace TicTacToe
       int deltaY = 2;
       int numberOfChoice = 5;
 
+      AIDifficultyMode[] values = (AIDifficultyMode[])Enum.GetValues(typeof(AIDifficultyMode));
+      int aiDifficultyModeIndex = Array.IndexOf(values, Board.aiDifficultyMode);
+
       int x = initX;
-      int y = initY;
+      int y = initY + aiDifficultyModeIndex * deltaY;
       while (true)
       {
         Display.WriteAtPosition(x, y, "X");
