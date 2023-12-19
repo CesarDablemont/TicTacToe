@@ -40,6 +40,8 @@ namespace TicTacToe
           }
         }
       }
+
+      Thread.Sleep(random.Next(500, 1000));
       return bestMove;
     }
 
