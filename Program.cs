@@ -54,28 +54,36 @@ internal class Program
           break;
 
         case 2:
-          display.Settings();
-          switch (Input.Settings())
+          bool escape = false;
+          while (!escape)
           {
-            case 0:
-              display.StartMode();
-              Input.StartMode();
-              break;
+            display.Settings();
+            switch (Input.Settings())
+            {
+              case 0:
+                display.StartMode();
+                Input.StartMode();
+                break;
 
-            case 1:
-              display.PlayerColor();
-              Input.PlayerColor(p1);
-              break;
+              case 1:
+                display.PlayerColor();
+                Input.PlayerColor(p1);
+                break;
 
-            case 2:
-              display.PlayerColor();
-              Input.PlayerColor(p2);
-              break;
+              case 2:
+                display.PlayerColor();
+                Input.PlayerColor(p2);
+                break;
 
-            case 3:
-              display.AIDifficultyMode();
-              Input.AIDifficultyMode();
-              break;
+              case 3:
+                display.AIDifficultyMode();
+                Input.AIDifficultyMode();
+                break;
+
+              default:
+                escape = true;
+                break;
+            }
           }
           break;
 

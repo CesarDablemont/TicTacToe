@@ -74,6 +74,7 @@ namespace TicTacToe
           LastSettingsChoice = (y - initY) / deltaY;
           return LastSettingsChoice;
         }
+        else return -1;
         Display.WriteAtPosition(Console.CursorLeft - 1, Console.CursorTop, " ");
       };
     }
@@ -102,6 +103,7 @@ namespace TicTacToe
           Board.startMode = StartModeValues[(y - initY) / deltaY];
           break;
         }
+        else break;
         Display.WriteAtPosition(Console.CursorLeft - 1, Console.CursorTop, " ");
       };
     }
@@ -155,6 +157,7 @@ namespace TicTacToe
 
           break;
         }
+        else break;
         Display.WriteAtPosition(Console.CursorLeft - 1, Console.CursorTop, " ");
       };
     }
@@ -183,6 +186,7 @@ namespace TicTacToe
           Board.aiDifficultyMode = AIDifficultyModeValues[(y - initY) / deltaY];
           break;
         }
+        else break;
         Display.WriteAtPosition(Console.CursorLeft - 1, Console.CursorTop, " ");
       };
     }
