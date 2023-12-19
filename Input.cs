@@ -29,14 +29,14 @@ namespace TicTacToe
 
     static public int Menu()
     {
-      int x = 15; //2
+      int x = 14; //2
       int y = 8;
       while (true)
       {
         Display.WriteAtPosition(x, y, "X");
         ConsoleKeyInfo keyInfo = Console.ReadKey();
         if (keyInfo.Key == ConsoleKey.UpArrow && y > 8) y -= 2;
-        else if (keyInfo.Key == ConsoleKey.DownArrow && y < 10) y += 2;
+        else if (keyInfo.Key == ConsoleKey.DownArrow && y < 12) y += 2;
         else if (keyInfo.Key == ConsoleKey.Spacebar || keyInfo.Key == ConsoleKey.Enter) return (y - 8) / 2;
         Display.WriteAtPosition(Console.CursorLeft - 1, Console.CursorTop, " ");
       }

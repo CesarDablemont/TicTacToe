@@ -9,17 +9,26 @@ internal class Program
     Board board = new Board();
     Display display = new Display();
 
-    APlayer p1 = new PlayerHuman(Cell.X);
-    APlayer p2 = new PlayerAI(Cell.O);
-
     display.hideCursor();
     display.Menu();
 
     while (true)
     {
-      switch (Input.Menu())
+      int choice = Input.Menu();
+      APlayer p1 = new PlayerHuman(Cell.X);
+      APlayer p2 = new PlayerAI(Cell.O);
+
+      switch (choice)
       {
         case 0:
+        case 1:
+
+          if (choice == 1)
+          {
+            p1 = new PlayerHuman(Cell.X);
+            p2 = new PlayerHuman(Cell.O);
+          }
+
           display.showCursor();
           board.startPlayer = board.StartPlayer(p1, p2);
           APlayer player = board.startPlayer;
@@ -44,7 +53,7 @@ internal class Program
           Console.ReadKey();
           break;
 
-        case 1:
+        case 2:
           display.Settings();
           switch (Input.Settings())
           {

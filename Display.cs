@@ -41,11 +41,13 @@ namespace TicTacToe
       Console.WriteLine("   | | | | (__    | | (_| | (__    | | (_) |  __/");
       Console.WriteLine("   |_| |_|\\___|   |_|\\__,_|\\___|   |_|\\___/ \\___|");
       Console.WriteLine("\n");
-      Console.WriteLine("             ┌───┐");
-      Console.WriteLine("             │   │  START THE GAME");
-      Console.WriteLine("             ├───┤");
-      Console.WriteLine("             │   │  SETTINGS");
-      Console.WriteLine("             └───┘");
+      Console.WriteLine("            ┌───┐");
+      Console.WriteLine("            │   │  START A SOLO GAME");
+      Console.WriteLine("            ├───┤");
+      Console.WriteLine("            │   │  START A MULTIPLAYER GAME");
+      Console.WriteLine("            ├───┤");
+      Console.WriteLine("            │   │  SETTINGS");
+      Console.WriteLine("            └───┘");
       // Console.SetCursorPosition(2, Console.CursorTop - 4);
     }
 
